@@ -6,13 +6,16 @@
       class="w-full h-48 object-cover rounded-lg mb-3"
     />
 
-    <h2 class="font-semibold text-lg">{{ product.title }}</h2>
+    <h2 class="font-semibold text-lg">
+      {{ product.title }}
+    </h2>
 
     <p class="text-pink-600 font-bold mt-1">
-      Rs. {{product.price}}
+      Rs. {{ product.price }}
     </p>
 
     <button
+      @click="emit('view', product)"
       class="mt-3 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700"
     >
       View Details
@@ -25,5 +28,9 @@ import type { Product } from '../types/Product'
 
 defineProps<{
   product: Product
+}>()
+
+const emit = defineEmits<{
+  (e: 'view', product: Product): void
 }>()
 </script>
