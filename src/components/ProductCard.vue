@@ -14,12 +14,13 @@
       Rs. {{ product.price }}
     </p>
 
-    <button
-      @click="emit('view', product)"
-      class="mt-3 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700"
-    >
-      View Details
-    </button>
+   v<button
+  @click="$router.push(`/product/${product.id}`)"
+  class="mt-3 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700"
+>
+  View Details
+</button>
+
   </div>
 </template>
 
