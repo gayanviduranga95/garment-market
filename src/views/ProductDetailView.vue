@@ -7,9 +7,11 @@
       ← Back
     </button>
 
-    <div v-if="loading">Loading product...</div>
+    <div v-if="loading">
+      Loading product...
+    </div>
 
-    <div v-else>
+    <div v-else-if="product">
       <img
         :src="product.thumbnail"
         class="w-full h-80 object-cover rounded-lg mb-6"
@@ -36,6 +38,7 @@ import { useRoute } from 'vue-router'
 import type { Product } from '../types/Product'
 
 const route = useRoute()
+
 const product = ref<Product | null>(null)
 const loading = ref(true)
 
