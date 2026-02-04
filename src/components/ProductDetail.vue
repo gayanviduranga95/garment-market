@@ -13,44 +13,33 @@
         class="w-full h-60 object-cover rounded-lg mb-4"
       />
 
-      <h2 class="text-2xl font-bold mb-2">{{ product.title }}</h2>
+      <h2 class="text-2xl font-bold mb-2">
+        {{ product.title }}
+      </h2>
 
       <p class="text-pink-600 font-bold mb-2">
         Rs. {{ product.price }}
       </p>
 
-      <p class="text-gray-600">
+      <p class="text-gray-600 mb-4">
         {{ product.description }}
       </p>
-        <a
-  href="https://wa.me/qr/67DM7YRTBHQOD1"
-  target="_blank"
-  class="mt-6 inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700"
->
-  📲 Order via WhatsApp
-</a>
 
-
+      <a
+        href="https://wa.me/94783662585"
+        target="_blank"
+        class="mt-6 inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700"
+      >
+        📲 Order via WhatsApp
+      </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { Product } from '../types/Product'
 
-const props = defineProps<{
+defineProps<{
   product: Product
 }>()
-
-const phoneNumber = '94771234567'
-
-const whatsAppLink = computed(() => {
-  const message =
-    `Hello, I would like to order:\n\n` +
-    `Product: ${props.product.title}\n` +
-    `Price: Rs. ${props.product.price}`
-
-  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-})
 </script>

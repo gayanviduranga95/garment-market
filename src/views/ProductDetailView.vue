@@ -28,6 +28,14 @@
       <p class="text-gray-700">
         {{ product.description }}
       </p>
+      <a
+  href="https://wa.me/94783662585"
+  target="_blank"
+  class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 mt-4"
+>
+  Order via WhatsApp
+</a>
+
     </div>
   </div>
 </template>
