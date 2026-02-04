@@ -1,4 +1,46 @@
 <template>
+  <div class="flex flex-wrap gap-3 mb-6">
+  <button
+    @click="selectedCategory = 'all'"
+    :class="selectedCategory === 'all' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
+    class="px-4 py-2 rounded-lg"
+  >
+    All
+  </button>
+
+  <button
+    @click="selectedCategory = 'mens-shirts'"
+    :class="selectedCategory === 'mens-shirts' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
+    class="px-4 py-2 rounded-lg"
+  >
+    Men
+  </button>
+
+  <button
+    @click="selectedCategory = 'womens-dresses'"
+    :class="selectedCategory === 'womens-dresses' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
+    class="px-4 py-2 rounded-lg"
+  >
+    Women
+  </button>
+
+  <button
+    @click="selectedCategory = 'mens-shoes'"
+    :class="selectedCategory === 'mens-shoes' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
+    class="px-4 py-2 rounded-lg"
+  >
+    Shoes
+  </button>
+
+  <button
+    @click="selectedCategory = 'tops'"
+    :class="selectedCategory === 'tops' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
+    class="px-4 py-2 rounded-lg"
+  >
+    Tops
+  </button>
+</div>
+
   <div class="p-6">
     <input
       v-model="searchText"
@@ -49,15 +91,24 @@ const products = ref<Product[]>([])
 const loading = ref(true)
 const searchText = ref('')
 const selectedProduct = ref<Product | null>(null)
-
+const selectedCategory = ref('all')
 
 const filteredProducts = computed(() => {
-  const q = searchText.value.toLowerCase()
-  return products.value.filter(product =>
-    product.title.toLowerCase().includes(q) ||
-    product.category.toLowerCase().includes(q)
-  )
+  const query = searchText.value.toLowerCase()
+
+  return products.value.filter(product => {
+    const matchesSearch =
+      product.title.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query)
+
+    const matchesCategory =
+      selectedCategory.value === 'all' ||
+      product.category === selectedCategory.value
+
+    return matchesSearch && matchesCategory
+  })
 })
+
 
 onMounted(async () => {
   const categories = [
