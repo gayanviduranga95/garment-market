@@ -1,122 +1,111 @@
 <template>
-  <!-- 🔥 HERO BANNER (TOP, FULL WIDTH) -->
-  <section class="relative h-[80vh] w-full">
-    <img
-      src="hhttps://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1198&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="Fashion banner"
-      class="absolute inset-0 w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
-    <div class="relative z-10 h-full flex items-center">
-      <div class="max-w-7xl mx-auto px-6">
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">
+
+  <div class="min-h-screen bg-purple-50">
+
+    <div class="max-w-7xl mx-auto px-6 py-10">
+
+
+      <div class="mb-10">
+        <h1 class="text-4xl font-bold text-purple-800">
           Vajira Clothing
         </h1>
-
-        <p class="text-xl md:text-2xl text-gray-200 mb-8">
-          Wear Confidence. Style Redefined.
+        <p class="text-gray-1000 mt-3">
+          Quality garments for everyday confidence.
         </p>
+      </div>
+
+ 
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button
+          @click="selectedCategory = 'all'"
+          :class="buttonClass('all')"
+          class="px-4 py-2 rounded-full transition"
+        >
+          All
+        </button>
 
         <button
-          class="bg-pink-600 hover:bg-pink-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition"
-          @click="scrollToProducts"
+          @click="selectedCategory = 'mens-shirts'"
+          :class="buttonClass('mens-shirts')"
+          class="px-4 py-2 rounded-full transition"
         >
-          Shop Now
+          Men
+        </button>
+
+        <button
+          @click="selectedCategory = 'womens-dresses'"
+          :class="buttonClass('womens-dresses')"
+          class="px-4 py-2 rounded-full transition"
+        >
+          Women
+        </button>
+
+        <button
+          @click="selectedCategory = 'mens-shoes'"
+          :class="buttonClass('mens-shoes')"
+          class="px-4 py-2 rounded-full transition"
+        >
+          Shoes
+        </button>
+
+        <button
+          @click="selectedCategory = 'tops'"
+          :class="buttonClass('tops')"
+          class="px-4 py-2 rounded-full transition"
+        >
+          Tops
         </button>
       </div>
+
+     
+      <input
+        v-model="searchText"
+        type="text"
+        placeholder="Search garments..."
+        class="mb-10 w-full max-w-md px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700"
+      />
+
+   
+      <section id="products">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">
+          Latest Garments
+        </h2>
+
+        <div v-if="loading" class="text-red-500">
+  Loading garments... ({{ products.length }})
+</div>
+
+        <div
+          v-else
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        >
+          <ProductCard
+            v-for="product in filteredProducts"
+            :key="product.id"
+            :product="product"
+            @view="selectedProduct = $event"
+          />
+        </div>
+
+        <p
+          v-if="!loading && filteredProducts.length === 0"
+          class="text-gray-500 mt-6"
+        >
+          No garments found.
+        </p>
+      </section>
+
     </div>
-  </section>
-
-  <!-- 🔹 PAGE CONTENT -->
-  <div class="max-w-7xl mx-auto px-6 py-8">
-
-    <!-- CATEGORY FILTERS -->
-    <div class="flex flex-wrap gap-3 mb-6">
-      <button
-        @click="selectedCategory = 'all'"
-        :class="selectedCategory === 'all' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
-        class="px-4 py-2 rounded-lg"
-      >
-        All
-      </button>
-
-      <button
-        @click="selectedCategory = 'mens-shirts'"
-        :class="selectedCategory === 'mens-shirts' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
-        class="px-4 py-2 rounded-lg"
-      >
-        Men
-      </button>
-
-      <button
-        @click="selectedCategory = 'womens-dresses'"
-        :class="selectedCategory === 'womens-dresses' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
-        class="px-4 py-2 rounded-lg"
-      >
-        Women
-      </button>
-
-      <button
-        @click="selectedCategory = 'mens-shoes'"
-        :class="selectedCategory === 'mens-shoes' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
-        class="px-4 py-2 rounded-lg"
-      >
-        Shoes
-      </button>
-
-      <button
-        @click="selectedCategory = 'tops'"
-        :class="selectedCategory === 'tops' ? 'bg-pink-600 text-white' : 'bg-gray-200'"
-        class="px-4 py-2 rounded-lg"
-      >
-        Tops
-      </button>
-    </div>
-
-    <!-- SEARCH -->
-    <input
-      v-model="searchText"
-      type="text"
-      placeholder="Search garments..."
-      class="mb-6 w-full max-w-md px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-    />
-
-    <!-- PRODUCTS -->
-    <section id="products" class="mt-16">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">
-        Latest Garments
-      </h2>
-
-      <div v-if="loading">Loading garments...</div>
-
-      <div
-        v-else
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-      >
-        <ProductCard
-          v-for="product in filteredProducts"
-          :key="product.id"
-          :product="product"
-          @view="selectedProduct = $event"
-        />
-      </div>
-
-      <p
-        v-if="!loading && filteredProducts.length === 0"
-        class="text-gray-500 mt-6"
-      >
-        No garments found.
-      </p>
-    </section>
   </div>
 
-  <!-- MODAL -->
+
   <ProductDetail
     v-if="selectedProduct"
     :product="selectedProduct"
     @close="selectedProduct = null"
   />
+
 </template>
 
 
@@ -168,9 +157,11 @@ onMounted(async () => {
   products.value = results.flatMap(result => result.products)
   loading.value = false
 })
-const scrollToProducts = () => {
-  const section = document.getElementById('products')
-  section?.scrollIntoView({ behavior: 'smooth' })
+
+const buttonClass = (category: string) => {
+  return selectedCategory.value === category
+    ? 'bg-purple-600 text-white shadow'
+    : 'bg-white text-gray-700 border hover:bg-purple-500 hover:text-white'
 }
 
 </script>

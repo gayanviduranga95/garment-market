@@ -17,8 +17,8 @@
         {{ product.title }}
       </h2>
 
-      <p class="text-pink-600 font-bold mb-2">
-        Rs. {{ product.price }}
+      <p class="text-purple-600 font-bold mb-2">
+        $. {{ product.price }}
       </p>
 
       <p class="text-gray-600 mb-4">

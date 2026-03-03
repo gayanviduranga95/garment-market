@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-4">
+  <div class="bg-purple-100 rounded-xl shadow hover:shadow-lg transition p-4">
     <img
       :src="product.thumbnail"
       alt="product image"
@@ -10,13 +10,16 @@
       {{ product.title }}
     </h2>
 
-    <p class="text-pink-600 font-bold mt-1">
-      Rs. {{ product.price }}
+    <p class="text-purple-600 font-bold mt-1">
+      $. {{ product.price }}
     </p>
-
-   v<button
+    <button
+      @click="cartStore.addToCart(product)"
+      class="mt-3 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+> Add to Cart</button>
+   <button
   @click="$router.push(`/product/${product.id}`)"
-  class="mt-3 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700"
+  class="mt-3 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700"
 >
   View Details
 </button>
@@ -26,6 +29,8 @@
 
 <script setup lang="ts">
 import type { Product } from '../types/Product'
+import { useCartStore } from '../stores/cart';
+const cartStore = useCartStore();
 
 defineProps<{
   product: Product

@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 max-w-3xl mx-auto">
     <button
-      class="mb-4 text-pink-600 underline"
+      class="mb-4 text-purple-600 underline"
       @click="$router.back()"
     >
       ← Back
@@ -22,7 +22,7 @@
       </h1>
 
       <p class="text-pink-600 text-xl font-bold mb-4">
-        Rs. {{ product.price }}
+        $. {{ product.price }}
       </p>
 
       <p class="text-gray-700">
