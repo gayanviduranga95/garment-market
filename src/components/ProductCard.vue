@@ -1,42 +1,75 @@
 <template>
-  <div class="bg-purple-100 rounded-xl shadow hover:shadow-lg transition p-4">
-    <img
-      :src="product.thumbnail"
-      alt="product image"
-      class="w-full h-48 object-cover rounded-lg mb-3"
-    />
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden
+    transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+  >
 
-    <h2 class="font-semibold text-lg">
-      {{ product.title }}
-    </h2>
+    <!-- Image Area -->
+    <div class="bg-gray-100 dark:bg-gray-700 p-6 flex justify-center">
+      <img
+        :src="product.thumbnail"
+        :alt="product.title"
+        class="h-40 object-contain transition duration-300 hover:scale-110"
+      />
+    </div>
 
-    <p class="text-purple-600 font-bold mt-1">
-      $. {{ product.price }}
-    </p>
-    <button
-      @click="cartStore.addToCart(product)"
-      class="mt-3 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
-> Add to Cart</button>
-   <button
-  @click="$router.push(`/product/${product.id}`)"
-  class="mt-3 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700"
->
-  View Details
-</button>
+    <!-- Info Area -->
+    <div class="p-4">
+
+      <!-- Title -->
+      <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+        {{ product.title }}
+      </h3>
+
+      <!-- Category -->
+      <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
+        {{ product.category }}
+      </p>
+
+      <!-- Price -->
+      <p class="text-xl font-bold text-black dark:text-white mb-4">
+        ${{ product.price }}
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex gap-2">
+
+        <!-- Add to Cart -->
+        <button
+          @click="addToCart"
+          class="flex-1 bg-black hover:bg-gray-800 text-white py-2 rounded-lg transition"
+        >
+          Add to Cart
+        </button>
+
+        <!-- View Details -->
+        <router-link
+          :to="`/product/${product.id}`"
+          class="flex-1 text-center border border-gray-300 dark:border-gray-600
+          py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          Details
+        </router-link>
+
+      </div>
+
+    </div>
 
   </div>
 </template>
 
-<script setup lang="ts">
-import type { Product } from '../types/Product'
-import { useCartStore } from '../stores/cart';
-const cartStore = useCartStore();
 
-defineProps<{
+<script setup lang="ts">
+import { useCartStore } from "../stores/cart"
+import type { Product } from "../types/Product"
+
+const props = defineProps<{
   product: Product
 }>()
 
-const emit = defineEmits<{
-  (e: 'view', product: Product): void
-}>()
+const cart = useCartStore()
+
+function addToCart() {
+  cart.add(props.product)
+}
 </script>
