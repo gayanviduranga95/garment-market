@@ -69,6 +69,6 @@ const { product } = defineProps<{
 const cart = useCartStore()
 
 function addToCart() {
-  cart.add(product)
+  cart.addToCart(product)
 }
 </script>
