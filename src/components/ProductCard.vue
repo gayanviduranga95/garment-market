@@ -58,18 +58,17 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { useCartStore } from "../stores/cart"
 import type { Product } from "../types/Product"
 
-const props = defineProps<{
+const { product } = defineProps<{
   product: Product
 }>()
 
 const cart = useCartStore()
 
 function addToCart() {
-  cart.add(props.product)
+  cart.add(product)
 }
 </script>
