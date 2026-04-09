@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Page Style */
+
+body {
+  background-color: #f3f4f6;
+  transition: background-color 0.3s;
+}
+
+.dark body {
+  background-color: #111827;
+}
+
+/* Glass Card */
+
+.glass {
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}

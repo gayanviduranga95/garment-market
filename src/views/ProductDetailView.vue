@@ -1,0 +1,59 @@
+<template>
+  <div class="p-6 max-w-3xl mx-auto">
+    <button
+      class="mb-4 text-purple-600 underline"
+      @click="$router.back()"
+    >
+      ← Back
+    </button>
+
+    <div v-if="loading">
+      Loading product...
+    </div>
+
+    <div v-else-if="product">
+      <img
+        :src="product.thumbnail"
+        class="w-full h-80 object-cover rounded-lg mb-6"
+      />
+
+      <h1 class="text-3xl font-bold mb-2">
+        {{ product.title }}
+      </h1>
+
+      <p class="text-pink-600 text-xl font-bold mb-4">
+        $. {{ product.price }}
+      </p>
+
+      <p class="text-gray-700">
+        {{ product.description }}
+      </p>
+      <a
+  href="https://wa.me/94783662585"
+  target="_blank"
+  class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 mt-4"
+>
+  Order via WhatsApp
+</a>
+
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import type { Product } from '../types/Product'
+
+const route = useRoute()
+
+const product = ref<Product | null>(null)
+const loading = ref(true)
+
+onMounted(async () => {
+  const id = route.params.id
+  const res = await fetch(`https://dummyjson.com/products/${id}`)
+  product.value = await res.json()
+  loading.value = false
+})
+</script>
