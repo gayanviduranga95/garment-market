@@ -44,6 +44,9 @@
           {{ cart.count }}
         </span>
       </router-link>
+      <router-link to="/login" class="hover:text-purple-600">
+        Login
+        </router-link>
 
       <button
         @click="toggleDark"
