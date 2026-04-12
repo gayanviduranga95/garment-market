@@ -1,6 +1,4 @@
-[3/4/2026 12:40] Gayan Viduranaga: <template>
-
-<!-- HERO SECTION -->
+<template>
 
 <section class="max-w-7xl mx-auto mt-6 px-6">
 
@@ -30,7 +28,7 @@
       </div>
 
       <img
-        src="https://images.unsplash.com/photo-1520975922284-4f2f3f7b47d2"
+        :src="heroImg"
         class="rounded-xl shadow-md"
       />
 
@@ -41,12 +39,7 @@
 </section>
 
 
-<!-- PRODUCTS SECTION -->
-
 <div class="max-w-7xl mx-auto px-6 py-10">
-
-  <!-- CATEGORY FILTER -->
-
   <div class="flex flex-wrap gap-3 mb-6">
 
     <button
@@ -96,9 +89,6 @@
 
   </div>
 
-
-  <!-- SEARCH -->
-
   <input
     v-model="searchText"
     type="text"
@@ -110,8 +100,6 @@
     border-gray-300 dark:border-gray-600"
   />
 
-
-  <!-- PRODUCTS -->
 
   <section id="products">
 
@@ -148,9 +136,6 @@
 
 </div>
 
-
-<!-- PRODUCT DETAIL MODAL -->
-
 <ProductDetail
   v-if="selectedProduct"
   :product="selectedProduct"
@@ -167,7 +152,7 @@ import { ref, onMounted, computed } from 'vue'
 import ProductCard from '../components/ProductCard.vue'
 import type { Product } from '../types/Product'
 import ProductDetail from '../components/ProductDetail.vue'
-
+import heroImg from '../assets/img.webp'
 const products = ref<Product[]>([])
 const loading = ref(true)
 const searchText = ref('')
