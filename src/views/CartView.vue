@@ -14,7 +14,7 @@
       >
         <div>
           <h2 class="font-semibold">{{ item.title }}</h2>
-          <p class="text-purple-600">Rs. {{ item.price }}</p>
+          <p class="text-purple-600">$. {{ item.price }}</p>
         </div>
 
         <button
@@ -27,7 +27,7 @@
 
       <div class="text-right mt-6">
         <h2 class="text-xl font-bold">
-          Total: Rs. {{ cart.total }}
+          Total: $. {{ cart.total }}
         </h2>
 
         <button
